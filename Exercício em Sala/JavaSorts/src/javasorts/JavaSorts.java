@@ -1,58 +1,129 @@
+
 package javasorts;
+
 import java.util.Random;
 import java.util.Scanner;
+
+/**
+ *
+ * @author luizh
+ */
 public class JavaSorts {
-    static int menuEntrada(){
-        Scanner scanner = new Scanner(System.in);
+    
+    public static int menuEntrada() {
         int op;
-        System.out.println("1-Gerar dados");
-        System.out.println("2-Entrar com dados");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1 - Gerar Dados");
+        System.out.println("2 - Entrar com Dados");
         op = scanner.nextInt();
         return op;
     }
     
+    public static int menuSort() {
+        int op;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Algoritmo de ordenação: ");
+        System.out.println("1 - BubbleSort");
+        System.out.println("2 - SelectionSort");
+        System.out.println("3 - InsertionSort");
+        System.out.println("4 - Comparar algoritmos");
+        op = scanner.nextInt();
+        return op;
+    }
+    
+    public static void printArray(int array[]) {
+        for(int i = 0; i < array.length; i++){
+            System.out.print(array[i] + " | ");
+        }
+    }
     
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Random rand = new Random();
-        int tamanho,op;
-        long tempoInicial,tempoFinal;
+        int tam;
+        double tempoInicial, tempoFinal;
         
-        System.out.println("Tamanho do vetor:");
-        tamanho = scanner.nextInt();
-        int[] vetor = new int[tamanho];
-        op = menuEntrada();
+        System.out.println("Tamanho do vetor: ");
+        tam = scanner.nextInt();
+        int[] array = new int[tam];
+        
+        int op = menuEntrada();
+        
         switch(op){
-            case 1:for(int i=0;i<vetor.length;i++)
-                        vetor[i] = rand.nextInt(100);
-            break;   
-            case 2: System.out.println("Dados vetor:");
-                    for(int i=0;i<vetor.length;i++)
-                        vetor[i] = scanner.nextInt();
-            break;        
-       }// fim switch
-        System.out.println("Vetor original:");
-        //printArray(vetor);
-        //Bubble Sort
-        tempoInicial = System.currentTimeMillis();
-        BubbleSort.bSort(vetor);
-        tempoFinal = System.currentTimeMillis();
-        System.out.println
-          ("Comparacoes:"+BubbleSort.compara);
-        System.out.println("Trocas:"+BubbleSort.trocas);
-        System.out.println("Tempo:"+(tempoFinal-tempoInicial));
+            case 1:
+                for(int i = 0; i < array.length - 1; i++) {
+                    array[i] = rand.nextInt(100);
+                }
+                break;
+            case 2:
+                System.out.println("Dados vetor: ");
+                for(int i = 0; i < array.length - 15; i++) {
+                    array[i] = scanner.nextInt();
+                }
+                break;
+            default:
+                System.out.println("Opcao invalida!");
+                break;
+        }
         
-       //SelectionSort.sSortComentado(vetor);
-        //InsertionSort.iSortComentado(vetor);
-        System.out.println("Vetor ordenado");
-        //printArray(vetor);
+        op = menuSort();
+        
+        System.out.println("Vetor original: ");
+        //printArray(array);
+        //System.out.println("");
+        
+        switch(op) {
+            case 1:
+                tempoInicial = System.currentTimeMillis();
+                BubbleSort.bSort(array);
+                //BubbleSort.bSortComentado(array);
+                tempoFinal = System.currentTimeMillis();
+                System.out.println("Comparacoes: " + BubbleSort.compara);
+                System.out.println("Trocas: " + BubbleSort.trocas);
+                System.out.println("Tempo: " + (tempoFinal - tempoInicial) + "ms");
+                break;
+            case 2:
+                SelectionSort.sSortComentado(array);
+                break;
+            case 3:
+                InsertionSort.iSortComentado(array);
+                break;
+            case 4:
+                int[] array2 = array.clone();
+                int[] array3 = array.clone();
+                
+                tempoInicial = System.currentTimeMillis();
+                BubbleSort.bSort(array);
+                tempoFinal = System.currentTimeMillis();
+                System.out.println("Comparacoes: " + BubbleSort.compara);
+                System.out.println("Trocas: " + BubbleSort.trocas);
+                System.out.println("Tempo: " + (tempoFinal - tempoInicial) + "ms");
+                System.out.println("");
+                
+                tempoInicial = System.currentTimeMillis();
+                SelectionSort.sSort(array2);
+                tempoFinal = System.currentTimeMillis();
+                System.out.println("Comparacoes: " + SelectionSort.compara);
+                System.out.println("Trocas: " + SelectionSort.troca);
+                System.out.println("Tempo: " + (tempoFinal - tempoInicial) + "ms");
+                System.out.println("");
+                
+                tempoInicial = System.currentTimeMillis();
+                InsertionSort.iSort(array3);
+                tempoFinal = System.currentTimeMillis();
+                System.out.println("Comparacoes: " + InsertionSort.compara);
+                System.out.println("Deslocamentos: " + InsertionSort.deslocamento);
+                System.out.println("Tempo: " + (tempoFinal - tempoInicial) + "ms");
+                System.out.println("");
+                break;
+            default:
+                System.out.println("Opcao invalida!");
+                break;
+        }
+        
+        System.out.println("Vetor ordenado: ");
+        //printArray(array);
+        
     }
-    
-    public static void printArray(int array[]){
-          for(int i=0;i<array.length;i++)
-              System.out.print(array[i]+"| ");
-          
-          System.out.println("\n");
-    }// fim printArray
     
 }
