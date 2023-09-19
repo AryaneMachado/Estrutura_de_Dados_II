@@ -2,108 +2,123 @@
 package javasort;
 //import java.lang.Comparable;
 public class Dados implements Comparable<Dados>{
-   private String data;
-   private String cidade;
-   private String condicao;
-   private String temperaturaTendencia;
-   private int temperaturaMinima;
-   private int temperaturaMaxima;
-   private int ventoVelocidadeMinima;
-   private int ventoVelocidadeMaxima;
-   private String ventoDirecao;
 
+   private int rank; // classifucação, ranking
+   private String name; // nome da empresa
+   private String industry; // setor
+   private int revenue; // receita em milhões de dólares
+   private double revenueGrowth; // crescimento da receita
+   private int employees; // qtd funcionários
+   private String headquarters; // local sede
+   
+   //private int ventoVelocidadeMaxima;
+   //private String ventoDirecao;
 
-    public String getData() {
-        return data;
+    public int getRank() {
+        return rank;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    /**
+     * @param rank the rank to set
+     */
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 
-
-    public String getCidade() {
-        return cidade;
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
     }
 
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCondicao() {
-        return condicao;
+    /**
+     * @return the insdustry
+     */
+    public String getIndustry() {
+        return industry;
     }
 
-
-    public void setCondicao(String condicao) {
-        this.condicao = condicao;
+    /**
+     * @param insdustry the insdustry to set
+     */
+    public void setIndustry(String industry) {
+        this.industry = industry;
     }
 
-
-    public String getTemperaturaTendencia() {
-        return temperaturaTendencia;
+    /**
+     * @return the revenue
+     */
+    public int getRevenue() {
+        return revenue;
     }
 
-    public void setTemperaturaTendencia(String temperaturaTendencia) {
-        this.temperaturaTendencia = temperaturaTendencia;
+    /**
+     * @param revenue the revenue to set
+     */
+    public void setRevenue(int revenue) {
+        this.revenue = revenue;
     }
 
-
-    public int getTemperaturaMinima() {
-        return temperaturaMinima;
+    /**
+     * @return the revenueGrowth
+     */
+    public double getRevenueGrowth() {
+        return revenueGrowth;
     }
 
-
-    public void setTemperaturaMinima(int temperaturaMinima) {
-        this.temperaturaMinima = temperaturaMinima;
+    /**
+     * @param revenueGrowth the revenueGrowth to set
+     */
+    public void setRevenueGrowth(double revenueGrowth) {
+        this.revenueGrowth = revenueGrowth;
     }
 
-
-    public int getTemperaturaMaxima() {
-        return temperaturaMaxima;
+    /**
+     * @return the employees
+     */
+    public int getEmployees() {
+        return employees;
     }
 
-
-    public void setTemperaturaMaxima(int temperaturaMaxima) {
-        this.temperaturaMaxima = temperaturaMaxima;
+    /**
+     * @param employees the employees to set
+     */
+    public void setEmployees(int employees) {
+        this.employees = employees;
     }
 
-
-    public int getVentoVelocidadeMinima() {
-        return ventoVelocidadeMinima;
+    /**
+     * @return the headquarters
+     */
+    public String getHeadquarters() {
+        return headquarters;
     }
 
-    public void setVentoVelocidadeMinima(int ventoVelocidadeMinima) {
-        this.ventoVelocidadeMinima = ventoVelocidadeMinima;
+    /**
+     * @param headquarters the headquarters to set
+     */
+    public void setHeadquarters(String headquarters) {
+        this.headquarters = headquarters;
     }
- 
-    public int getVentoVelocidadeMaxima() {
-        return ventoVelocidadeMaxima;
-    }
-
-    public void setVentoVelocidadeMaxima(int ventoVelocidadeMaxima) {
-        this.ventoVelocidadeMaxima = ventoVelocidadeMaxima;
-    }
-
-     public String getVentoDirecao() {
-        return ventoDirecao;
-    }
-
-    public void setVentoDirecao(String ventoDirecao) {
-        this.ventoDirecao = ventoDirecao;
-    }
+  
     
     // Métodos para controlar o objeto cidade
-    @Override    
-    public int compareTo(Dados outroDado){
-      return this.getCidade().
-              compareTo(outroDado.getCidade());
-    }
+    @Override   
+    public boolean compareTo(Dados outroDado){
+      return this.getHeadquarters().compareTo(outroDado.getHeadquarters());
+   }
     
-     @Override
+    /*@Override
     public String toString(){
-        return getCidade()+ " : " + getCondicao() ;
+    return getHeadquarters()+ " : " + getCondicao() ;
     }// fim toString
     
     @Override
@@ -113,5 +128,5 @@ public class Dados implements Comparable<Dados>{
         Dados dados = (Dados) o;
         return cidade.equals(dados.cidade);
     }
+*/
 
-}

@@ -8,11 +8,11 @@ public class FormSistema extends javax.swing.JFrame {
     ArrayList<Dados> lista = new ArrayList<>();
    // Definir os comparadores
     
-  Comparator<Dados> comparaData = (Dados d1, Dados d2) -> // comparando datas
-                    d1.getData().compareTo(d2.getData());
+  //Comparator<Dados> comparaRank = (Dados d1, Dados d2) -> // comparando datas
+                    //d1.getRank().compareTo(d2.getRank());
   
-  Comparator<Dados> comparaTempMinima =(Dados d1, Dados d2) -> // comprando temperatura minima
-                    d1.getTemperaturaMinima() - d2.getTemperaturaMinima();
+  //Comparator<Dados> comparaTempMinima =(Dados d1, Dados d2) -> // comprando temperatura minima
+                    //d1.getTemperaturaMinima() - d2.getTemperaturaMinima();
 
     
     public FormSistema() {
@@ -184,7 +184,7 @@ public class FormSistema extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1136, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -199,22 +199,21 @@ public class FormSistema extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void carregaArquivo(){
-     String csvFile = "dados_tempo_import.csv";
+     String csvFile = "largest_companies";
         String line = "";
         String[] leitura = null;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
-                Dados tempo = new Dados();
+                Dados company = new Dados();
                 leitura = line.split(",");
-                tempo.setData(leitura[0]);
-                tempo.setCidade(leitura[1]);
-                tempo.setCondicao(leitura[2]);
-                tempo.setTemperaturaTendencia(leitura[3]);
-                tempo.setTemperaturaMinima(Integer.parseInt(leitura[4]));
-                tempo.setTemperaturaMaxima(Integer.parseInt(leitura[5]));
-                tempo.setVentoVelocidadeMinima(Integer.parseInt(leitura[6]));
-                tempo.setVentoVelocidadeMaxima(Integer.parseInt(leitura[7]));
-                tempo.setVentoDirecao(leitura[8]);
+                company.setRank(Integer.parseInt(leitura[0]));
+                company.setName(leitura[1]);
+                company.setIndustry(leitura[2]);
+                company.setRevenue(Integer.parseInt(leitura[3]));
+                company.setRevenueGrowth(Double.parseDouble(leitura[4]));
+                company.setEmployees(Integer.parseInt(leitura[5]));
+                company.setHeadquarters(leitura[6]);
+                
                 /*System.out.println(leitura[0]+"\n");
                 System.out.println(leitura[1]+"\n");
                 System.out.println(leitura[2]+"\n");
@@ -224,7 +223,8 @@ public class FormSistema extends javax.swing.JFrame {
                 System.out.println(leitura[6]+"\n");
                 System.out.println(leitura[7]+"\n");
                 System.out.println(leitura[8]+"\n");*/
-                lista.add(tempo); 
+                
+                lista.add(company); 
             }// fim percurso no arquivo
           
         } catch (IOException e) {
@@ -234,22 +234,22 @@ public class FormSistema extends javax.swing.JFrame {
     //https://1bestcsharp.blogspot.com/2016/03/java-populate-jtable-from-arraylist.html
     void mostra(){
         //limpando a tabela
-        tabelaDados.setModel(new DefaultTableModel(null,new String[]{"Data","Cidade","Condição","Tendencia","Máxima","Minima","Vento Max", "Vento Min", "Direção"}));
+        tabelaDados.setModel(new DefaultTableModel(null,new String[]{"Rank","Name","Industry","Revenue (USD Milions)","Revenue Grownth",
+        "Employees","Headquarters"}));
        
         DefaultTableModel model = 
                 (DefaultTableModel)tabelaDados.getModel();
-        Object rowData[] = new Object[9];// qtd colunas
+        Object rowData[] = new Object[7];// qtd colunas
         for(Dados d: lista)
         {
-            rowData[0] = d.getData();
-            rowData[1] = d.getCidade();
-            rowData[2] = d.getCondicao();
-            rowData[3] = d.getTemperaturaTendencia();
-            rowData[4] = d.getTemperaturaMinima();
-            rowData[5] = d.getTemperaturaMaxima();
-            rowData[6] = d.getVentoVelocidadeMinima();
-            rowData[7] = d.getVentoVelocidadeMaxima();
-            rowData[8] = d.getVentoDirecao();
+            rowData[0] = d.getRank();
+            rowData[1] = d.getName();
+            rowData[2] = d.getIndustry();
+            rowData[3] = d.getRevenue();
+            rowData[4] = d.getRevenueGrowth();
+            rowData[5] = d.getEmployees();
+            rowData[6] = d.getHeadquarters();
+ 
             //System.out.println("TempMin:"+d.getTemperaturaMinima()+"\n");
             model.addRow(rowData);
         }// fim preenche modelo
@@ -264,12 +264,12 @@ public class FormSistema extends javax.swing.JFrame {
     
         switch (cbOrdena.getSelectedIndex()){
             
-            case 0: lista.sort(comparaData); //System.out.println("data.....");
+            /*case 0: lista.sort(comparaData); //System.out.println("data.....");
             break;
             case 1: Collections.sort(lista);// cidade
             break;
             case 2: lista.sort(comparaTempMinima);
-            break;
+            break;*/
             
         }
         mostra();
@@ -287,7 +287,7 @@ public class FormSistema extends javax.swing.JFrame {
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
         Dados dadoBusca = new Dados();
-        dadoBusca.setCidade(txtBusca.getText());
+        dadoBusca.setHeadquarters(txtBusca.getText());
         int r=-1;
         if(rbLinear.isSelected()){
           r = lista.indexOf(dadoBusca);
