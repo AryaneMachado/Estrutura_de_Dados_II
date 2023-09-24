@@ -5,9 +5,10 @@ import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class FormSistema extends javax.swing.JFrame {
+public class FormSistema extends javax.swing.JFrame { // É um janela de interface gráfica
     ArrayList<Dados> lista = new ArrayList<>();
-   // Definir os comparadores
+  
+  // Cada comparador é uma instância da interface Comparable
     
   Comparator<Dados> compareRank = (Dados d1, Dados d2) -> Integer.compare(d1.getRank(), d2.getRank());
   Comparator<Dados> compareName =(Dados d1, Dados d2) -> d1.getName().compareTo(d2.getName());
@@ -15,8 +16,9 @@ public class FormSistema extends javax.swing.JFrame {
   Comparator<Dados> compareEmployees =(Dados d1, Dados d2) -> Integer.compare(d2.getEmployees(), d1.getEmployees());
 
     
+    // Construtor que inicia a interface gráfica, carrega e mostra arquivos
     public FormSistema() {
-        initComponents();
+        initComponents(); 
         carregaArquivo();
         mostra();
     }
@@ -148,23 +150,22 @@ public class FormSistema extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(cbOrdena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnOrdNome, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rbBinaria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(rbLinear, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addComponent(btnBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addComponent(cbOrdena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnOrdNome, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbBinaria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rbLinear, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(btnBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(169, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,19 +192,21 @@ public class FormSistema extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void carregaArquivo(){
-     String csvFile = "largest_companies.csv";
-        String line = "";
+     String csvFile = "largest_companies.csv"; // importando arquivo csv
+        String line = ""; // armazenando cada linha do arquivo
         String[] leitura = null;
         boolean primeiraLinha = true;
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) { // lendo
             while ((line = br.readLine()) != null) {
                 if(primeiraLinha) {
                     primeiraLinha = false;
                     continue;
                 }
-                Dados company = new Dados();
+                
+                // Processando valores de cada linha: 
+                Dados company = new Dados(); // declarando objeto para guardar info da linha tual do csv
                 leitura = line.split(",");
-                if (leitura.length > 0 && leitura[0].matches("\\d+")) {
+                if (leitura.length > 0 && leitura[0].matches("\\d+")) { // verifica se a primeira linha contém dado
                 company.setRank(Integer.parseInt(leitura[0]));
                 company.setName(leitura[1]);
                 company.setIndustry(leitura[2]);
@@ -222,22 +225,25 @@ public class FormSistema extends javax.swing.JFrame {
                 System.out.println(leitura[7]+"\n");
                 System.out.println(leitura[8]+"\n");*/
                 
-                lista.add(company); 
-            }// fim percurso no arquivo
+                lista.add(company);  // adicionando na lista os valores de cada linha
+            }
           
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     //https://1bestcsharp.blogspot.com/2016/03/java-populate-jtable-from-arraylist.html
+    
+    //limpando a tabela e preenchendo com dados das empresas
     void mostra(){
         //limpando a tabela
         tabelaDados.setModel(new DefaultTableModel(null,new String[]{"Rank","Name","Industry","Revenue (USD Milions)","Revenue Grownth",
-        "Employees","Headquarters"}));
+        "Employees","Headquarters"})); // Definindo nome colunas
        
         DefaultTableModel model = 
                 (DefaultTableModel)tabelaDados.getModel();
         Object rowData[] = new Object[7];// qtd colunas
+        // rowData é uma matriz que adiciona valores das empresas, antes de inserir na tabela
         for(Dados d: lista)
         {
             rowData[0] = d.getRank();
@@ -256,7 +262,7 @@ public class FormSistema extends javax.swing.JFrame {
     
    
     
-    // BOTÃO ORDENAR:
+    // BOTÃO ORDENAR: 
     // switch case para escolher por qual comparador ordenar
     private void btnOrdNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdNomeActionPerformed
     
@@ -284,10 +290,11 @@ public class FormSistema extends javax.swing.JFrame {
      
     }//GEN-LAST:event_rbLinearActionPerformed
 
+    // BOTÃO BUSCA
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        Dados dadoBusca = new Dados();
-        dadoBusca.setName(txtBusca.getText());
-        int r=-1;
+        Dados dadoBusca = new Dados(); 
+        dadoBusca.setName(txtBusca.getText()); // Busca pelo nome
+        int r=-1; // armazena o indice da empresa encontrada
         int comp = 0;
         if(rbLinear.isSelected()) {
             for (int i = 0; i < lista.size(); i++) {
