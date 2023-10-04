@@ -1,7 +1,9 @@
 
 package javasort;
 //import java.lang.Comparable;
-public class Dados implements Comparable<Dados>{
+
+// Comparable é uma interface que permite comparar Onjetos por meio do método compareTo();
+public class Dados implements Comparable<Dados>{ 
 
    private int rank; // classificação, ranking
    private String name; // nome da empresa
@@ -110,23 +112,29 @@ public class Dados implements Comparable<Dados>{
     }
   
     
-    // Métodos para controlar o objeto cidade
+    // Sobrescrita de métodos
+    
+    // Compara por nome
     @Override   
-    public int compareTo(Dados outroDado){
+    public int compareTo(Dados outroDado){ // outrodado é um objeto
       return this.getName().compareTo(outroDado.getName());
     }
 
     
     @Override
     public String toString(){
-    return getName()+ " : " + getRank();
+    return getName()+ " : " + getRank(); // combinando nome da empresa com seu ranking
     }// fim toString
     
     @Override
+    // Compara se dois objetos são iguais
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dados dados = (Dados) o;
+        
+        // Compara o campo name se o objeto 'o' for uma instância de 'Dados' e não for
+        // o mesmo objeto que o atual (this);
         return name.equals(dados.name);
     }
 
