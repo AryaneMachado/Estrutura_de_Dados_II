@@ -97,6 +97,11 @@ public class FormSistema extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabelaDados);
 
         cbOrdena.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rank", "Nome", "Receita", "Empregados", " " }));
+        cbOrdena.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbOrdenaActionPerformed(evt);
+            }
+        });
 
         txtBusca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -330,6 +335,10 @@ public class FormSistema extends javax.swing.JFrame {
             tabelaDados.scrollRectToVisible(cellRect); 
 
     }//GEN-LAST:event_btnBuscaActionPerformed
+
+    private void cbOrdenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbOrdenaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbOrdenaActionPerformed
 
     /**
      * @param args the command line arguments
